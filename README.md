@@ -3,7 +3,7 @@
 ## 🚨 The Situation
 
 You asked an AI to build a simple "Number Guessing Game" using Streamlit.
-It wrote the code, ran away, and now the game is unplayable. 
+It wrote the code, ran away, and now the game is unplayable.
 
 - You can't win.
 - The hints lie to you.
@@ -25,30 +25,51 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- **Game Purpose**:
+  This is a number guessing game where you try to guess a secret number within a certain range based on the difficulty level (Easy: 1-20, Normal: 1-100, Hard: 1-500) before you run out of attempts.
+- **Bugs Found**:
+
+  - The hints were backwards (guessing too high told you to go higher, and guessing too low told you to go lower).
+  - The difficulty range was always stuck at 1-100, ignoring whatever you selected in the sidebar.
+  - The scoring system was confusing: it used odd/even attempts to randomly add or subtract points, and allowed the score to drop below zero.
+  - Invalid inputs (like text or decimals) and duplicate guesses took away attempts and polluted the guess history.
+  - Hints and results disappeared instantly when the page rerun because they weren't saved in Streamlit's session state.
+- **Fixes Applied**:
+
+  - Fixed the logic in `logic_utils.py` so hints guide the player in the correct direction.
+  - Updated the difficulty ranges to change dynamically and reset the game properly when a new difficulty is chosen.
+  - Simplified the scoring logic so players lose a consistent 2 points per incorrect guess (never dropping below 0) and get a fair bonus for winning quickly.
+  - Added input validation to catch invalid entries and duplicate guesses, showing warning messages without wasting attempts.
+  - Used Streamlit session state to save hints, messages, and statuses so they persist nicely across page reruns.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
+Here is a step-by-step example of playing the fixed game on Normal difficulty (range 1-100, secret number is 42):
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. **User enters a guess of 50**: The game returns `📉 Go LOWER!` and the attempts counter drops from 8 to 7.
+2. **User enters a guess of 30**: The game returns `📈 Go HIGHER!` and the attempts counter drops to 6.
+3. **User enters "abc"**: The game shows a warning `That is not a number.` without consuming any attempts.
+4. **User enters a duplicate guess of 30**: The game displays `You already guessed 30. Try a different number.` without consuming any attempts.
+5. **User enters a guess of 42**: The game displays `🎉 Correct! You won! The secret was 42. Final score: 90` and triggers celebratory balloons on screen.
+6. If clicked submit again it shows: "You already won. Start a new game to play again."
 
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+![1781562155536](image/README/1781562155536.png)
 
 ## 🧪 Test Results
 
-```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+```bash
+(.venv) roop@Roops-Mac-mini tests % pytest test_game_logic.py 
+================================================================== test session starts ==================================================================
+platform darwin -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/roop/Documents/Codepath/ai110-module1show-gameglitchinvestigator-starter/tests
+plugins: anyio-4.13.0
+collected 70 items                                                                                                                                  
+
+test_game_logic.py ......................................................................                                                         [100%]
+
+================================================================== 70 passed in 0.02s ===================================================================
 ```
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+* [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]

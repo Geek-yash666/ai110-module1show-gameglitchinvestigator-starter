@@ -27,10 +27,10 @@
 > Document how you used AI to help generate or improve tests.
 
 | Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
-|-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
+| --------- | ----------- | ----------------- | ------------ | -------------- |
+|           |             |                   |              |                |
+|           |             |                   |              |                |
+|           |             |                   |              |                |
 
 ---
 
@@ -64,12 +64,12 @@
 
 <!-- Describe what you asked each model to do -->
 
-| | Model A | Model B |
-|-|---------|---------|
-| **Model name** | | |
-| **Response summary** | | |
-| **More Pythonic?** | | |
-| **Clearer explanation?** | | |
+|                                | Model A | Model B |
+| ------------------------------ | ------- | ------- |
+| **Model name**           |         |         |
+| **Response summary**     |         |         |
+| **More Pythonic?**       |         |         |
+| **Clearer explanation?** |         |         |
 
 **Which did you prefer and why?**
 
