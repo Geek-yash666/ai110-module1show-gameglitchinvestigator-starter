@@ -149,13 +149,12 @@ This verified all 25+ bug fixes worked correctly. Each test targeted a specific 
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+Every time you click a button or enter a guess, Streamlit runs the entire script from top to bottom, which normally resets all variables. Session state acts like a temporary memory bank that stores variables (like the secret number, score, and guess history) so they do not get wiped out when the page reloads. Understanding this helped me realize why the hints and win screens were originally disappearing and how to fix them.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- **Habit/Strategy to reuse**: I want to keep writing unit tests for core game logic before building the UI. Running `pytest` saved a lot of time because I could immediately see if my fixes broke anything without manually playing the game every time.
+- **Do differently next time**: I will be more cautious when AI suggests Streamlit UI changes. I need to make sure the suggested logic fits into Streamlit's rerun cycle rather than just assuming the code will work as-is.
+- **Thinking about AI code**: This project taught me that AI-generated code can look neat and compile fine, but still have major logical flaws. I now know that developer testing and manual verification are absolutely necessary. For example AI said duplicate guess issue and wrote a code, but it doesn't work, i checked it manually and fixed it again.
