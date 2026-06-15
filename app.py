@@ -35,7 +35,7 @@ def check_guess(guess, secret):
 
     try:
         if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
+            return "Too High", "📈 Go HIGHER!" # it should be opposite.
         else:
             return "Too Low", "📉 Go LOWER!"
     except TypeError:
@@ -44,10 +44,10 @@ def check_guess(guess, secret):
             return "Win", "🎉 Correct!"
         if g > secret:
             return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
+        return "Too Low", "📉 Go LOWER!" 
 
 
-def update_score(current_score: int, outcome: str, attempt_number: int):
+def update_score(current_score: int, outcome: str, attempt_number: int): #very odd logic.
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
         if points < 10:
@@ -55,7 +55,7 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
         return current_score + points
 
     if outcome == "Too High":
-        if attempt_number % 2 == 0:
+        if attempt_number % 2 == 0: # why even/odd different scors?
             return current_score + 5
         return current_score - 5
 
@@ -64,6 +64,8 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
 
     return current_score
 
+
+#UI
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
 st.title("🎮 Game Glitch Investigator")
@@ -107,7 +109,7 @@ if "history" not in st.session_state:
 st.subheader("Make a guess")
 
 st.info(
-    f"Guess a number between 1 and 100. "
+    f"Guess a number between 1 and 100. " #it must be between the low and high values
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
 )
 
@@ -133,7 +135,10 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.secret = random.randint(1, 100) # random? should be from the difficulty level.
+    st.session_state.score = 0
+    st.session_state.status = "playing"
+    st.session_state.history = []
     st.success("New game started.")
     st.rerun()
 
@@ -150,12 +155,12 @@ if submit:
     ok, guess_int, err = parse_guess(raw_guess)
 
     if not ok:
-        st.session_state.history.append(raw_guess)
+        st.session_state.history.append(raw_guess) # why adding if not a correct format?
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
 
-        if st.session_state.attempts % 2 == 0:
+        if st.session_state.attempts % 2 == 0: # why even bother converting even attempts to strings?
             secret = str(st.session_state.secret)
         else:
             secret = st.session_state.secret
